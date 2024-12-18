@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('dashboard', 'dashboard')
+Route::view('painel', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('profile', 'profile')
+Route::view('perfil', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 

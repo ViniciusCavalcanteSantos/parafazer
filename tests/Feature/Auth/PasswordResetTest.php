@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Notification;
 use Livewire\Volt\Volt;
 
 test('reset password link screen can be rendered', function () {
-    $response = $this->get('/forgot-password');
+    $response = $this->get('/esqueceu-senha');
 
     $response
         ->assertSeeVolt('pages.auth.forgot-password')
@@ -37,7 +37,7 @@ test('reset password screen can be rendered', function () {
         ->call('sendPasswordResetLink');
 
     Notification::assertSentTo($user, ResetPassword::class, function ($notification) {
-        $response = $this->get('/reset-password/'.$notification->token);
+        $response = $this->get('/recuperar-senha/'.$notification->token);
 
         $response
             ->assertSeeVolt('pages.auth.reset-password')
