@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TodoGroup extends Model
 {
+    protected $table = "todo_group";
     protected $fillable = [
         'users_id',
         'title'

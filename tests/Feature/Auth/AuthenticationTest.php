@@ -48,7 +48,7 @@ test('navigation menu can be rendered', function () {
 
     $this->actingAs($user);
 
-    $response = $this->get('/painel');
+    $response = $this->get('/tarefas');
 
     $response
         ->assertOk()

@@ -1,10 +1,12 @@
 <?php
 
+use App\Livewire\TodoGroups;
 use Illuminate\Support\Facades\Route;
 
-Route::view('painel', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(["auth", "verified"])->group(function() {
+    Route::get("tarefas", [TodoGroups::class, "render"])
+        ->name("dashboard");
+});
 
 Route::view('perfil', 'profile')
     ->middleware(['auth'])
