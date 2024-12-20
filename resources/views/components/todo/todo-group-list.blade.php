@@ -7,11 +7,11 @@ new class extends Component {
     public TodoGroup $todoGroup;
 }; ?>
 
-<div id="accordion-arrow-icon" data-accordion="open">
-    <h2 id="accordion-arrow-icon-heading-3">
+<div id="accordion-arrow-icon-{{ $todoGroup->id }}" data-accordion="open">
+    <h2 id="accordion-arrow-icon-heading-{{ $todoGroup->id }}">
         <button type="button"
             class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-            data-accordion-target="#accordion-arrow-icon-body-3" aria-expanded="false"
+            data-accordion-target="#accordion-arrow-icon-body-{{ $todoGroup->id }}" aria-expanded="false"
             aria-controls="accordion-arrow-icon-body-3">
             <span>{{ $todoGroup->title }}</span>
             <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
@@ -21,7 +21,7 @@ new class extends Component {
             </svg>
         </button>
     </h2>
-    <div id="accordion-arrow-icon-body-3" class="hidden" aria-labelledby="accordion-arrow-icon-heading-3">
+    <div id="accordion-arrow-icon-body-{{ $todoGroup->id }}" class="hidden" aria-labelledby="accordion-arrow-icon-heading-3">
         <div class="text-center p-5 border border-t-0 border-gray-200 dark:border-gray-700">
             <p class="mb-4 text-gray-500 dark:text-gray-400">Sem Subtarefas 😢</p>
 

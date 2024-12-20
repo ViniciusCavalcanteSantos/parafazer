@@ -1,4 +1,38 @@
-<x-app-layout>
+<?php
+
+use App\Livewire\Forms\LoginForm;
+use Illuminate\Support\Facades\Session;
+use Livewire\Attributes\Layout;
+use Livewire\Volt\Component;
+use App\Models\TodoGroup;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
+
+new #[Layout('layouts.app')] class extends Component
+{
+    public string $title;
+    public int $users_id;
+    public Collection $todoGroups;
+
+    public function mount() {
+        $this->todoGroups = TodoGroup::get();
+    }
+
+    public function addTodo() {
+        $this->users_id = Auth::user()->id;
+        $validated = $this->validate([
+            'title' => ['required', 'string', 'min:5', 'max:255'],
+            'users_id' => ['required', 'integer', 'numeric', 'max:255', 'exists:'.User::class.',id'],
+        ]);
+
+        TodoGroup::create($validated);
+        $this->todoGroups = TodoGroup::get();
+        $this->dispatch('close-modal', 'add-todo'); 
+    }
+}; ?>
+
+<div>
     <div class="pt-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <a href="{{ route("register") }}">
@@ -33,7 +67,7 @@
                                 type="text" 
                                 name="title" 
                                 required autofocus />
-                <x-input-error :messages="$errors->get('form.title')" class="mt-2" />
+                <x-input-error :messages="$errors->get('title')" class="mt-2" />
             </div>
     
             <div class="flex items-center justify-end mt-4">
@@ -43,4 +77,4 @@
             </div>
         </form>
     </x-modal>
-</x-app-layout>
+</div>
