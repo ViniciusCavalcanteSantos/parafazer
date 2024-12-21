@@ -16,18 +16,20 @@ new #[Layout('layouts.app')] class extends Component
     public Collection $todoGroups;
 
     public function mount() {
-        $this->todoGroups = TodoGroup::get();
+        $users_id = Auth::user()->id;
+        $this->todoGroups = TodoGroup::where("users_id", $users_id)->get();
     }
 
     public function addTodo() {
-        $this->users_id = Auth::user()->id;
+        $users_id = Auth::user()->id;
+        $this->users_id = $users_id;
         $validated = $this->validate([
             'title' => ['required', 'string', 'min:5', 'max:255'],
             'users_id' => ['required', 'integer', 'numeric', 'max:255', 'exists:'.User::class.',id'],
         ]);
 
         TodoGroup::create($validated);
-        $this->todoGroups = TodoGroup::get();
+        $this->todoGroups = TodoGroup::where("users_id", $users_id)->get();
         $this->dispatch('close-modal', 'add-todo'); 
     }
 }; ?>
