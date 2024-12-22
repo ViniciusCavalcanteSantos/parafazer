@@ -8,9 +8,14 @@ use Livewire\Volt\Component;
 
 new class extends Component
 {
+    public string $current_username = '';
     public string $current_password = '';
     public string $password = '';
     public string $password_confirmation = '';
+
+    public function mount(): void {
+        $this->current_username = Auth::user()->name;
+    }
 
     /**
      * Update the password for the currently authenticated user.
@@ -50,6 +55,8 @@ new class extends Component
     </header>
 
     <form wire:submit="updatePassword" class="mt-6 space-y-6">
+        <input hidden type="text" autocomplete="username" value="{{ $current_username }}">
+
         <div>
             <x-input-label for="update_password_current_password" :value="__('Current Password')" />
             <x-text-input wire:model="current_password" id="update_password_current_password" name="current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" />
