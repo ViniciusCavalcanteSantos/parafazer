@@ -5,7 +5,7 @@ use Livewire\Volt\Volt;
 
 Route::middleware(["auth", "verified"])->group(function() {
     Volt::route("tarefas", "pages.todo.todo-groups")
-        ->name("dashboard");
+        ->name("tasks");
 
     Route::view('perfil', 'profile')
         ->name('profile');
