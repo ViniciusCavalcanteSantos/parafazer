@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class TodoGroup extends Model
+class Task extends Model
 {
-    protected $table = "todo_group";
     protected $fillable = [
         'users_id',
         'title'
     ];
 
-    public function todoGroupItem(): HasMany
+    public function subTasks(): HasMany
     {
-        return $this->hasMany(TodoGroupItem::class);
+        return $this->hasMany(SubTask::class);
     }
 }

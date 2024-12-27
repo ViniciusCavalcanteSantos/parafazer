@@ -1,18 +1,18 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\TodoGroup;
+use App\Models\Task;
 
 new class extends Component {
-    public TodoGroup $todoGroup;
+    public Task $task;
 }; ?>
 
-<h2 id="accordion-todo-group-heading-{{ $todoGroup->id }}">
+<h2 id="accordion-task-item-heading-{{ $task->id }}">
     <button type="button"
         class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-        data-accordion-target="#accordion-todo-group-body-{{ $todoGroup->id }}" aria-expanded="false"
-        aria-controls="accordion-todo-group-body-3">
-        <span>{{ $todoGroup->title }}</span>
+        data-accordion-target="#accordion-task-item-body-{{ $task->id }}" aria-expanded="false"
+        aria-controls="accordion-task-item-body-3">
+        <span>{{ $task->title }}</span>
         <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -20,7 +20,7 @@ new class extends Component {
         </svg>
     </button>
 </h2>
-<div id="accordion-arrow-icon-body-{{ $todoGroup->id }}" class="hidden" aria-labelledby="accordion-todo-group-heading-{{ $todoGroup->id }}">
+<div id="accordion-task-item-body-{{ $task->id }}" class="hidden" aria-labelledby="accordion-task-item-heading-{{ $task->id }}">
     <div class="text-center p-5 border border-t-0 border-gray-200 dark:border-gray-700">
         <p class="mb-4 text-gray-500 dark:text-gray-400">Sem Subtarefas 😢</p>
 

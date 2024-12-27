@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('todo_group', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id("id");
             $table->foreignId("users_id")->references("id")->on("users")->onUpdate("cascade")->onDelete("cascade");
             $table->string("title", 80);
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('todo_group');
+        Schema::dropIfExists('tasks');
     }
 };

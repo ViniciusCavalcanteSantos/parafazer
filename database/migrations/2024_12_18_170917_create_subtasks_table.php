@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('todo_group_item', function (Blueprint $table) {
+        Schema::create('subtasks', function (Blueprint $table) {
             $table->id("id");
-            $table->foreignId("todos_group_id")->references("id")->on("todo_group")->onUpdate("cascade")->onDelete("cascade");
+            $table->foreignId("tasks_id")->references("id")->on("tasks")->onUpdate("cascade")->onDelete("cascade");
             $table->string("title", 80);
             $table->boolean("completed")->default(false);
             $table->timestamps();
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('todo_group_item');
+        Schema::dropIfExists('subtasks');
     }
 };

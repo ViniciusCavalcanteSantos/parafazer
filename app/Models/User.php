@@ -47,8 +47,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function todoGroup(): HasMany
+    public function tasks(): HasMany
     {
-        return $this->hasMany(TodoGroup::class);
+        return $this->hasMany(Task::class);
     }
 }
