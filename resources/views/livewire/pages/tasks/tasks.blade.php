@@ -22,8 +22,7 @@ new #[Layout('layouts.app')] class extends Component {
 
     public function addTask()
     {
-        $users_id = Auth::user()->id;
-        $this->users_id = $users_id;
+        $this->users_id = Auth::user()->id;
         $validated = $this->validate([
             'title' => ['required', 'string', 'min:5', 'max:255'],
             'users_id' => ['required', 'integer', 'numeric', 'max:255', 'exists:' . User::class . ',id'],
@@ -32,6 +31,7 @@ new #[Layout('layouts.app')] class extends Component {
         Task::create($validated);
         $this->updateUserTasks();
         $this->dispatch('close-modal', 'add-task');
+        $this->title = "";
     }
 
     public function removeTask($taskId)
@@ -65,19 +65,33 @@ new #[Layout('layouts.app')] class extends Component {
         </div>
     </div>
 
-    <div class="py-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div id="accordion-tasks" data-accordion="open">
-                        @forEach($tasks as $task)
-                            <x-tasks.tasks-item :$task/>
-                        @endForEach
+    @if($tasks->isEmpty())
+        <div class="py-4">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <div class="text-center">
+                            <p class="text-lg font-semibold text-zinc-400">Nenhuma tarefa encontrada</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @else
+        <div class="py-4">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <div id="accordion-tasks" data-accordion="open">
+                            @forEach($tasks as $task)
+                                <x-tasks.tasks-item :$task/>
+                            @endForEach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <x-modal name="add-task" :show="$errors->isNotEmpty()" focusable>
         <form wire:submit="addTask" class="p-6">
