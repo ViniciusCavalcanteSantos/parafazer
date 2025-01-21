@@ -17,6 +17,14 @@ return new class extends Migration
             $table->string("title", 80);
             $table->timestamps();
         });
+
+        Schema::create('sub_tasks', function (Blueprint $table) {
+            $table->id("id");
+            $table->foreignId("tasks_id")->references("id")->on("tasks")->onUpdate("cascade")->onDelete("cascade");
+            $table->string("title", 80);
+            $table->boolean("completed")->default(false);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -25,5 +33,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('tasks');
+        Schema::dropIfExists('sub_tasks');
     }
 };
