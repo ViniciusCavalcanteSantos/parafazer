@@ -53,6 +53,18 @@ new class extends Component {
                     class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
                 Adicionar uma Subtarefa
             </button>
+
+            <div class="relative p-5 mt-2">
+                <div class="flex">
+                    @forEach($task->subTasks as $subTask)
+                        <div class="flex-1">
+                            <p class="text-gray-500 dark:text-gray-400">{{ $subTask->title }}</p>
+                        </div>
+                    @endForEach
+
+                    <p class="absolute right-0 text-gray-500 dark:text-gray-400 text-sm">Criado em: {{ $task->created_at->format('d/m/Y H:i') }}</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

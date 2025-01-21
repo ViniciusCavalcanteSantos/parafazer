@@ -20,7 +20,7 @@ return new class extends Migration
 
         Schema::create('sub_tasks', function (Blueprint $table) {
             $table->id("id");
-            $table->foreignId("tasks_id")->references("id")->on("tasks")->onUpdate("cascade")->onDelete("cascade");
+            $table->foreignId("task_id")->references("id")->on("tasks")->onUpdate("cascade")->onDelete("cascade");
             $table->string("title", 80);
             $table->boolean("completed")->default(false);
             $table->timestamps();
