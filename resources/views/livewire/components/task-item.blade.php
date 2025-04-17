@@ -5,6 +5,21 @@ use App\Models\Task;
 
 new class extends Component {
     public Task $task;
+    public string $title;
+
+    public function addSubTask()
+    {
+        $validated = $this->validate([
+            'title' => ['required', 'string', 'min:5', 'max:255'],
+        ]);
+
+        $this->task->subTasks()->create([
+            'title' => $this->title,
+            'task_id' => $this->task->id,
+        ]);
+
+        $this->title = "";
+    }
 }; ?>
 
 <div wire:key="{{ $task->id }}">
@@ -49,7 +64,9 @@ new class extends Component {
         <div class="text-center p-5 border border-t-0 border-gray-200 dark:border-gray-700">
             <p class="mb-4 text-gray-500 dark:text-gray-400">Sem Subtarefas 😢</p>
 
-            <button type="button"
+            <button 
+                    x-on:click.prevent="$dispatch('open-modal', 'add-subtask-{{ $task->id }}')"
+                    type="button"
                     class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
                 Adicionar uma Subtarefa
             </button>
@@ -67,4 +84,23 @@ new class extends Component {
             </div>
         </div>
     </div>
+
+    <x-modal name="add-subtask-{{ $task->id }}" :show="$errors->isNotEmpty()" focusable>
+        <form wire:submit="addSubTask" class="p-6">
+            <div>
+                <x-input-label for="title" :value="__('Titulo')"/>
+                <x-text-input wire:model="title" id="title" class="block mt-1 w-full"
+                              type="text"
+                              name="title"
+                              required autofocus/>
+                <x-input-error :messages="$errors->get('title')" class="mt-2"/>
+            </div>
+
+            <div class="flex items-center justify-end mt-4">
+                <x-primary-button class="ms-3" type="submit">
+                    {{ __('Criar Tarefa') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
 </div>

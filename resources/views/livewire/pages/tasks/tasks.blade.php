@@ -84,7 +84,7 @@ new #[Layout('layouts.app')] class extends Component {
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div id="accordion-tasks" data-accordion="open">
                             @forEach($tasks as $task)
-                                <x-tasks.tasks-item :$task/>
+                                <livewire:components.task-item :$task />
                             @endForEach
                         </div>
                     </div>
